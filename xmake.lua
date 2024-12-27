@@ -3,10 +3,11 @@ set_languages("cxx23")
 add_requires("vcpkg::boost-asio")
 add_requires("vcpkg::spdlog")
 
-target("xmake-test")
+target("server")
     set_kind("binary")
-    add_files("src/*.cpp")
+    add_files("src/server/*.cpp")
     add_packages("vcpkg::boost-asio", "vcpkg::spdlog")
+    add_includedirs("include/server")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
