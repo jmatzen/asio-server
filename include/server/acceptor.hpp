@@ -12,8 +12,17 @@ class IoContext;
 class Acceptor : boost::noncopyable {
     tcp::acceptor acceptor_;
 
+    void handleAccept(const boost::system::error_code &e,
+                      boost::asio::ip::tcp::socket& s);
+
   public:
-    Acceptor(IoContext &context, int port);
+    Acceptor(int port);
+
+    void accept();
+
+    tcp::acceptor* operator->() {
+        return &acceptor_;
+    }
 };
 } // namespace jm
 #endif // INCLUDED_acceptor_hpp

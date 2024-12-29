@@ -22,7 +22,7 @@ class Thread : boost::noncopyable {
         };
     }
 
-    void operator=(Thread&&) = delete;
+    // void operator=(Thread&&) = delete;
 
   public:
     Thread(Thread &&rhs)
@@ -31,6 +31,12 @@ class Thread : boost::noncopyable {
     template <typename F>
     Thread(const F &func)
         : thread_(fnWrapper(func)) {}
+
+    Thread& operator=(Thread&& rhs) {
+        std::swap(thread_, rhs.thread_);
+        std::swap(thread_id_, rhs.thread_id_);
+        return *this;
+    }
 
     std::thread *operator->() { return &thread_; }
 
