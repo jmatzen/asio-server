@@ -7,9 +7,8 @@
 using namespace jm;
 using boost::asio::ip::tcp;
 
-Acceptor::Acceptor(
-    int port,
-    std::function<void(std::shared_ptr<net::Channel> const &)> const &fn)
+Acceptor::Acceptor(int port,
+                   std::function<void(std::unique_ptr<TcpEndpoint>)> const &fn)
     : acceptor_(AppContext::getContext().getIoContext().get(),
                 tcp::endpoint(tcp::v4(), port)),
       handler_(fn) {
@@ -28,14 +27,17 @@ void Acceptor::handleAccept(const boost::system::error_code &e,
 
 void Acceptor::handleConnection(std::unique_ptr<TcpEndpoint> tcpEndpoint,
                                 const boost::system::error_code &e) {
+    // accept a new connection
     accept();
-    handler_(nullptr);
-    spdlog::info("handleConnection");
-    auto endpoint = tcpEndpoint->socket().remote_endpoint();
+
     if (e) {
         spdlog::warn("connect failed: {}", e.what());
+        // tcpEndpoint should be destroyed at the end of this call because it's
+        // not passed to the handler.
     } else {
+        auto endpoint = tcpEndpoint->socket().remote_endpoint();
         spdlog::info("connection from {}:{}", endpoint.address().to_string(),
                      endpoint.port());
+        handler_(std::move(tcpEndpoint));
     }
 }
