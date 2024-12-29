@@ -18,7 +18,7 @@ class MainClass : public Component {
 
     void postConstruct() override {
 
-        acceptor_ = std::make_unique<Acceptor>(8080);
+        acceptor_ = std::make_unique<Acceptor>(8080, [](auto&& channel) {});
         acceptor_->accept();
 
         spdlog::info("MainClass::postConstruct");

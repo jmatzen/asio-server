@@ -16,11 +16,7 @@ void TcpEndpoint::accept(Acceptor &acceptor) {
     spdlog::info("waiting for connection");
     acceptor->async_accept(
         socket_, [this, &acceptor](const boost::system::error_code &e) {
-            auto endpoint = socket_.remote_endpoint();
-            spdlog::info("connection from {}:{}",
-                         endpoint.address().to_string(), endpoint.port());
-            acceptor.accept();
-            this->handleAccept(e);
+            acceptor.handleConnection(std::unique_ptr<TcpEndpoint>(this), e);
         });
 }
 
