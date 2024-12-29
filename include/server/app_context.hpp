@@ -14,7 +14,6 @@ concept DerivedFromComponent = std::is_base_of_v<Component, T>;
 
 class AppContext : boost::noncopyable {
     IoContext ioContext_;
-    std::vector<Thread> threads_;
 
     static void initialize();
     void waitForAppExit();
