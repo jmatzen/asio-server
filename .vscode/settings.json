@@ -61,6 +61,8 @@
         "unordered_map": "cpp",
         "variant": "cpp",
         "vector": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "span": "cpp",
+        "set": "cpp"
     }
 }

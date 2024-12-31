@@ -16,7 +16,7 @@ class Channel;
 
 class Acceptor : boost::noncopyable {
     tcp::acceptor acceptor_;
-    std::function<void(std::unique_ptr<TcpEndpoint>)> handler_;
+    std::function<void(std::unique_ptr<boost::asio::ip::tcp::socket>&&)> handler_;
 
     void handleAccept(const boost::system::error_code &e,
                       boost::asio::ip::tcp::socket &s);
@@ -24,11 +24,11 @@ class Acceptor : boost::noncopyable {
   public:
     Acceptor(
         int port,
-        std::function<void(std::unique_ptr<TcpEndpoint>)> const &fn);
+        std::function<void(std::unique_ptr<boost::asio::ip::tcp::socket>&&)> const &fn);
 
     void accept();
 
-    void handleConnection(std::unique_ptr<TcpEndpoint> endpoint, const boost::system::error_code &e);
+    void handleConnection(std::unique_ptr<boost::asio::ip::tcp::socket> &&socket, const boost::system::error_code &e);
 
     tcp::acceptor *operator->() { return &acceptor_; }
 };

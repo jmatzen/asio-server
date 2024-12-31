@@ -13,11 +13,11 @@ TcpEndpoint::TcpEndpoint()
     : socket_(AppContext::getContext().getIoContext().get()) {}
 
 void TcpEndpoint::accept(Acceptor &acceptor) {
-    spdlog::info("waiting for connection");
-    acceptor->async_accept(
-        socket_, [this, &acceptor](const boost::system::error_code &e) {
-            acceptor.handleConnection(std::unique_ptr<TcpEndpoint>(this), e);
-        });
+    // spdlog::info("waiting for connection");
+    // acceptor->async_accept(
+    //     socket_, [this, &acceptor](const boost::system::error_code &e) {
+    //         acceptor.handleConnection(std::unique_ptr<TcpEndpoint>(this), e);
+    //     });
 }
 
 void TcpEndpoint::handleAccept(const boost::system::error_code& e) {

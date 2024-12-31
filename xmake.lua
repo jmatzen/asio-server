@@ -5,7 +5,7 @@ add_requires("vcpkg::spdlog")
 
 target("server")
     set_kind("binary")
-    add_files("src/server/*.cpp")
+    add_files("src/server/**.cpp")
     add_packages("vcpkg::boost-asio", "vcpkg::spdlog")
     add_includedirs("include/server")
 
