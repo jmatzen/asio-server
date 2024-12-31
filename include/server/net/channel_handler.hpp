@@ -5,12 +5,13 @@
 #include <span>
 
 namespace jm::net {
+class ChannelHandlerContext;
 class ChannelHandler {
   public:
     virtual ~ChannelHandler() = default;
     virtual void write(const std::span<u8> &buf) {}
-    virtual void onChannelRead(const std::span<u8> &buf) {}
-
+    virtual void onChannelRead(const ChannelHandlerContext &ctx,
+                               const std::span<u8> &buf) {}
 };
 
 template <typename T>

@@ -10,7 +10,7 @@
 #include <types.hpp>
 
 namespace jm::net {
-static const int MAX_CONCURRENT_SCATTER_READS = 2;
+static const int MAX_CONCURRENT_SCATTER_READS = 1;
 
 struct Gather {
     u64 index;

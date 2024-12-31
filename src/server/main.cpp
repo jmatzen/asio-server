@@ -7,19 +7,38 @@
 #include <net/channel_handler.hpp>
 #include <net/channel_handler_context.hpp>
 #include <net/channel_pipeline.hpp>
+#include <set>
 #include <spdlog/spdlog.h>
 #include <tcp_endpoint.hpp>
 #include <thread.hpp>
 #include <thread>
 #include <vector>
-#include <set>
 
 using namespace jm;
 
 class MyChannelHandler : public net::ChannelHandler {
-    void onChannelRead(const std::span<u8> &buf) override {
+    void onChannelRead(const net::ChannelHandlerContext  &ctx, const std::span<u8> &buf) override {
         std::string s((char *)buf.data(), buf.size());
-        spdlog::info("===> {}", s);
+        for (int offset = 0; offset < buf.size(); offset += 16) {
+            std::string line;
+            line += fmt::format("{:04x} ", offset);
+            for (int q = offset; q < offset + 16; ++q) {
+                if (q < buf.size()) {
+                    line += fmt::format("{:02x} ", u8(s[q]));
+                } else {
+                    line += "   ";
+                }
+            }
+            line += " ";
+            for (int q = offset; q < offset + 16 && q < buf.size(); ++q) {
+                if (q < buf.size()) {
+                    line += s[q] >= ' ' && s[q] <= 127 ? s[q] : '.';
+                }
+            }
+
+            spdlog::info(line);
+        }
+        ctx.next(buf);
     }
 };
 
@@ -38,13 +57,17 @@ class MainClass : public Component {
             auto pipeline =
                 std::make_shared<net::ChannelPipeline>(std::move(channel));
             pipeline->addLast(std::make_unique<MyChannelHandler>(), "0");
-            pipeline->onClose([=](){
+            std::weak_ptr<net::ChannelPipeline> weakPipeline = pipeline;
+            pipeline->onClose([=]() {
                 spdlog::info("closing!");
-                std::scoped_lock lk(pipelinesMutex_);
-                pipelines_.erase(pipeline);
+                auto pipeline = weakPipeline.lock();
+                if (pipeline) {
+                    std::scoped_lock lk(pipelinesMutex_);
+                    pipelines_.erase(pipeline);
+                }
             });
-            pipeline->startRead();
             pipelines_.insert(pipeline);
+            pipeline->startRead();
             spdlog::info("created pipeline");
         });
 

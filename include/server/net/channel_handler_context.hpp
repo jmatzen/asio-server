@@ -37,7 +37,10 @@ class ChannelHandlerContext {
     }
 
     void onChannelRead(const std::span<u8>& buf) {
-        handler_->onChannelRead(buf);
+        handler_->onChannelRead(*this, buf);
+    }
+
+    void next(const std::span<u8>& buf) const {
         if (next_) {
             next_->onChannelRead(buf);
         }
