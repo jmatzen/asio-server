@@ -10,7 +10,7 @@ class ChannelPipeline;
 class ChannelHandler;
 class Channel;
 class ChannelHandlerContext {
-    std::weak_ptr<ChannelPipeline> pipeline_;
+     std::weak_ptr<ChannelPipeline> pipeline_;
     std::shared_ptr<ChannelHandler> handler_;
     std::shared_ptr<ChannelHandlerContext> next_;
     std::shared_ptr<ChannelHandlerContext> prev_;
@@ -44,6 +44,10 @@ class ChannelHandlerContext {
         if (next_) {
             next_->onChannelRead(buf);
         }
+    }
+
+    ChannelPipeline& getPipeline() const {
+        return *pipeline_.lock();
     }
     
 };

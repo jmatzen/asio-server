@@ -42,6 +42,14 @@ class Channel {
             startRead_(callback);
         }
     }
+
+    void shutdown() {
+        socket_->shutdown(boost::asio::socket_base::shutdown_both);
+    }
+
+    void close() {
+        socket_->close();
+    }
 };
 } // namespace jm::net
 

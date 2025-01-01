@@ -38,6 +38,10 @@ class ChannelPipeline : public std::enable_shared_from_this<ChannelPipeline> {
     void onClose(const std::function<void()>& callback) {
         onClose_ = callback;
     }
+
+    Channel& getChannel() const {
+        return *channel_.get();
+    }
 };
 
 } // namespace jm::net

@@ -63,6 +63,7 @@
         "vector": "cpp",
         "memory": "cpp",
         "span": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "*.ipp": "cpp"
     }
 }
