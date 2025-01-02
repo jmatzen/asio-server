@@ -52,24 +52,22 @@ void Http2ChannelHandler::onChannelRead(const net::ChannelHandlerContext &ctx,
                                         const std::span<u8> &buf)
 {
 
-   if (buf.size() == 0)
+   if (buf.size() > 0)
    {
-      ctx.next(buf);
-      return;
-   }
 
-   switch (state_)
-   {
-   case State::FAILED:
-      return;
-   case State::CONNECTION:
-      onChannelReadConnectionState(ctx, buf);
-      break;
-   case State::READING:
-      onChannelReadReadingState(ctx, buf);
-      break;
-   default:
-      throw std::runtime_error("unexpected state");
+      switch (state_)
+      {
+      case State::FAILED:
+         return;
+      case State::CONNECTION:
+         onChannelReadConnectionState(ctx, buf);
+         break;
+      case State::READING:
+         onChannelReadReadingState(ctx, buf);
+         break;
+      default:
+         throw std::runtime_error("unexpected state");
+      }
    }
 
    ctx.next(buf);
