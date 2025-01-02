@@ -2,8 +2,10 @@
 #include <net/channel_handler_context.hpp>
 #include <net/channel_pipeline.hpp>
 #include <net/http2_channel_handler.hpp>
+#include <net/deserialize.hpp>
 #include <spdlog/spdlog.h>
 #include <types.hpp>
+#include <HPacker.h>
 
 using namespace jm;
 using namespace jm::net;
@@ -12,6 +14,8 @@ static constexpr std::string_view CONNECTION_PREFACE =
     "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n";
 
 static const int MIN_FRAME_SIZE = 9;
+
+static const jm::u32 STREAM_MASK = 017777777777;
 
 struct FrameBits
 {
@@ -51,6 +55,8 @@ struct Http2ChannelHandler::Frame
 void Http2ChannelHandler::onChannelRead(const net::ChannelHandlerContext &ctx,
                                         const std::span<u8> &buf)
 {
+    // TODO: make faster by removing the scope of this lock.
+    std::scoped_lock lock(mutex_);
 
    if (buf.size() > 0)
    {
@@ -119,6 +125,7 @@ void Http2ChannelHandler::processFrames()
       iterator = processNextFrame(iterator);
    }
    std::copy(iterator, buffer_.end(), buffer_.begin());
+   buffer_.resize(buffer_.end()-iterator);
 }
 
 std::vector<u8>::iterator Http2ChannelHandler::processNextFrame(
@@ -135,7 +142,7 @@ std::vector<u8>::iterator Http2ChannelHandler::processNextFrame(
       return iterator;
    }
    frame.type = static_cast<FrameType>(p[3]);
-   frame.streamId = (p[5] & 0x7f) << 24 | p[6] << 16 | p[7] << 8 | p[8];
+   frame.streamId = net::deserialize<u32>(&p[5]) & STREAM_MASK;
    frame.flags = p[4];
    frame.data = std::span<u8>(iterator + MIN_FRAME_SIZE,
                               iterator + frame.length + MIN_FRAME_SIZE);
@@ -169,6 +176,7 @@ void Http2ChannelHandler::processFrameWindowUpdate(const Frame &frame)
 {
 }
 
+
 void Http2ChannelHandler::processFrameHeaders(const Frame &frame)
 {
    /*
@@ -198,7 +206,7 @@ void Http2ChannelHandler::processFrameHeaders(const Frame &frame)
    auto it = frame.data.begin();
    u8 padLength = *it++;
    u8 const *p = it.base();
-   u32 streamDep = (p[0] & 0x7f) << 24 | p[1] << 16 | p[2] << 8 | p[3];
+   u32 streamDep = net::deserialize<u32>(it) & STREAM_MASK;
    it += 4;
    u8 weight = *it++;
 

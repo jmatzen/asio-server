@@ -9,6 +9,8 @@ namespace jm::net
 
 class Http2ChannelHandler : public net::ChannelHandler
 {
+   std::mutex mutex_;
+   
    struct Frame;
 
    enum class State

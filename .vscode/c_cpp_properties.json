@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include/**",
+                "${workspaceFolder}/external/HPacker",
                 "/Users/john/depot/vcpkg/installed/arm64-osx/include"
             ],
             "defines": [],

@@ -8,6 +8,14 @@ target("server")
     add_files("src/server/**.cpp")
     add_packages("vcpkg::boost-asio", "vcpkg::spdlog")
     add_includedirs("include/server")
+    add_deps("HPacker")  -- Add HPack as a dependency
+    add_includedirs("external/HPacker/src")  -- Make HPack headers available for the server target
+
+-- Define the static library target
+target("HPacker")
+    set_kind("static")  -- Static library
+    add_files("external/HPacker/src/**.cpp")  -- Add all .cpp files from the HPack directory
+    add_includedirs("external/HPacker/src")  -- Add the HPack include directory for this library
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
