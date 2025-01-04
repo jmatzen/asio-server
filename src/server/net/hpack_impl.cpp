@@ -34,3 +34,14 @@ HPack::decode(std::span<u8> const &buffer) const {
    }
    return headers;
 }
+
+
+// hpack helpers
+extern "C" void freezero(void *p, size_t len) {
+   memset(p, 0, len);
+   free(p);
+}
+
+extern "C" void *recallocarray(void *p, size_t o, size_t n, size_t size) {
+   return realloc(p, n * size);
+}

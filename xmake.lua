@@ -8,7 +8,6 @@ target("server")
     add_files("src/server/**.cpp")
     add_packages("vcpkg::boost-asio", "vcpkg::spdlog")
     add_includedirs("include/server")
-    add_deps("HPacker")  -- Add HPack as a dependency
     add_deps("hpack")  -- Add HPack as a dependency
     add_includedirs("external/hpack")  -- Make HPack headers available for the server target
 

@@ -121,7 +121,7 @@ Http2ChannelHandler::processNextFrame(std::vector<u8>::iterator iterator) {
    const u8 *p = iterator.base();
    Frame frame{};
    frame.length = net::deserialize<u32>(
-       std::span<u8>(iterator.base(), 3)); // p[0] << 16 | p[1] << 8 | p[2];
+       std::span<u8>(iterator.base(), 3));
    u32 bytes_remaining = buffer_.end() - iterator;
    if (frame.length + MIN_FRAME_SIZE > bytes_remaining) {
       // the entire frame has not arrived yet
@@ -160,6 +160,10 @@ void Http2ChannelHandler::processFrameSettings(const Frame &frame) {}
 void Http2ChannelHandler::processFrameWindowUpdate(const Frame &frame) {}
 
 void Http2ChannelHandler::processFrameHeaders(const Frame &frame) {
+   if (channels_.find(frame.streamId) != channels_.end()) {
+      throw std::runtime_error("protocol error: stream already exists.");
+   }
+
    union {
       struct {
          u8 endStream : 1;
@@ -170,7 +174,7 @@ void Http2ChannelHandler::processFrameHeaders(const Frame &frame) {
          u8 priority : 1;
          u8 unused2 : 2;
 
-      } flags;
+      } ;
       u8 bits;
 
    } flags;
@@ -180,13 +184,13 @@ void Http2ChannelHandler::processFrameHeaders(const Frame &frame) {
    flags.bits = frame.flags;
    auto it = frame.data.begin();
    int padLength{};
-   if (flags.flags.padded) {
+   if (flags.padded) {
       padLength = *it++;
    }
    bool exclusive{};
    u32 streamDependency{};
    u8 weight{};
-   if (flags.flags.priority) {
+   if (flags.priority) {
       u32 value = net::deserialize<u32>(it);
       exclusive = value >> 31;
       streamDependency = value & STREAM_MASK;
@@ -200,17 +204,11 @@ void Http2ChannelHandler::processFrameHeaders(const Frame &frame) {
       spdlog::info("{} = {}", item.first, item.second);
    }
 
+   auto channel = std::make_unique<http::Http2Channel>(std::move(headers));
+
+   this->channels_.insert(std::make_pair(frame.streamId, std::move(channel)));
+
    spdlog::info("headers pri={} padded={} endHeaders={} endStream={}",
-                (int)flags.flags.priority, (int)flags.flags.padded,
-                (int)flags.flags.endHeaders, (int)flags.flags.endStream);
-}
-
-// hpack helpers
-extern "C" void freezero(void *p, size_t len) {
-   memset(p, 0, len);
-   free(p);
-}
-
-extern "C" void *recallocarray(void *p, size_t o, size_t n, size_t size) {
-   return realloc(p, n * size);
+                (int)flags.priority, (int)flags.padded,
+                (int)flags.endHeaders, (int)flags.endStream);
 }
