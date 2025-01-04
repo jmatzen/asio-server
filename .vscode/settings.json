@@ -64,6 +64,10 @@
         "memory": "cpp",
         "span": "cpp",
         "set": "cpp",
-        "*.ipp": "cpp"
-    }
+        "*.ipp": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp"
+    },
+    "editor.tabSize": 3,
+    "editor.insertSpaces": true
 }
