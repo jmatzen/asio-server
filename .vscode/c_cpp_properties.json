@@ -3,7 +3,9 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/include/server",
+                "${workspaceFolder}/external/hpack",
                 "/Users/john/depot/vcpkg/installed/arm64-osx/include"
             ],
             "defines": [],

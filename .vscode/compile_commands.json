@@ -1,6 +1,71 @@
 [
 {
   "directory": "/Users/john/depot/xmake-test",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++2b", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-DNDEBUG", "-o", "build/.objs/xmake-test/macosx/arm64/release/src/main.cpp.o", "src/main.cpp"],
-  "file": "src/main.cpp"
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/thread.cpp.o", "src/server/thread.cpp"],
+  "file": "src/server/thread.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/net/channel.cpp.o", "src/server/net/channel.cpp"],
+  "file": "src/server/net/channel.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/net/hpack_impl.cpp.o", "src/server/net/hpack_impl.cpp"],
+  "file": "src/server/net/hpack_impl.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/net/channel_handler_context.cpp.o", "src/server/net/channel_handler_context.cpp"],
+  "file": "src/server/net/channel_handler_context.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/net/http2_channel_handler.cpp.o", "src/server/net/http2_channel_handler.cpp"],
+  "file": "src/server/net/http2_channel_handler.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/net/http/http2_channel.cpp.o", "src/server/net/http/http2_channel.cpp"],
+  "file": "src/server/net/http/http2_channel.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/net/channel_pipeline.cpp.o", "src/server/net/channel_pipeline.cpp"],
+  "file": "src/server/net/channel_pipeline.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/net/dump_channel_handler.cpp.o", "src/server/net/dump_channel_handler.cpp"],
+  "file": "src/server/net/dump_channel_handler.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/acceptor.cpp.o", "src/server/acceptor.cpp"],
+  "file": "src/server/acceptor.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/tcp_endpoint.cpp.o", "src/server/tcp_endpoint.cpp"],
+  "file": "src/server/tcp_endpoint.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/io_context.cpp.o", "src/server/io_context.cpp"],
+  "file": "src/server/io_context.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/app_context.cpp.o", "src/server/app_context.cpp"],
+  "file": "src/server/app_context.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-std=c++2b", "-Iinclude/server", "-Iinclude", "-Iexternal/hpack", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/include", "-isystem", "/Users/john/depot/vcpkg/installed/arm64-osx/lib/pkgconfig/../../include", "-o", "build/.objs/server/macosx/arm64/debug/src/server/main.cpp.o", "src/server/main.cpp"],
+  "file": "src/server/main.cpp"
+},
+{
+  "directory": "/Users/john/depot/xmake-test",
+  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "arm64-apple-macos14.4", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk", "-g", "-O0", "-Iexternal/hpack", "-o", "build/.objs/hpack/macosx/arm64/debug/external/hpack/hpack.c.o", "external/hpack/hpack.c"],
+  "file": "external/hpack/hpack.c"
 }]

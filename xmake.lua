@@ -3,10 +3,21 @@ set_languages("cxx23")
 add_requires("vcpkg::boost-asio")
 add_requires("vcpkg::spdlog")
 
-target("xmake-test")
+target("server")
     set_kind("binary")
-    add_files("src/*.cpp")
+    add_files("src/server/**.cpp")
     add_packages("vcpkg::boost-asio", "vcpkg::spdlog")
+    add_includedirs("include/server")
+    add_includedirs("include")
+    add_deps("hpack")  -- Add HPack as a dependency
+    add_includedirs("external/hpack")  -- Make HPack headers available for the server target
+
+
+target("hpack")
+    set_kind("static")
+    add_files("external/hpack/hpack.c")
+    add_includedirs("external/hpack")
+    
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io

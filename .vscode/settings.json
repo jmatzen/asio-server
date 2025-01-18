@@ -60,6 +60,15 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "variant": "cpp",
-        "vector": "cpp"
-    }
+        "vector": "cpp",
+        "memory": "cpp",
+        "span": "cpp",
+        "set": "cpp",
+        "*.ipp": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "types.h": "c"
+    },
+    "editor.tabSize": 3,
+    "editor.insertSpaces": true
 }
