@@ -28,6 +28,11 @@ class Http2ChannelHandler : public net::ChannelHandler {
    std::mutex mutex_;
    Dispatcher dispatcher_;
 
+   // Flow control state
+   u32 connectionWindowSize_ = 65535;  // Initial connection window size
+   u32 initialStreamWindowSize_ = 65535;  // Initial stream window size
+   std::unordered_map<u32, u32> streamWindowSizes_;  // Per-stream window sizes
+
    struct Frame;
 
    enum class State {
@@ -62,9 +67,17 @@ class Http2ChannelHandler : public net::ChannelHandler {
    void processFrameData(const Frame &frame);
 
    void encodeHeaderFrame(const ChannelHandlerContext &context,
-                          const http::HeaderMap &headerMap);
+                          const http::HeaderMap &headerMap, u32 streamId);
 
    void sendInitialSettingsFrame(const ChannelHandlerContext& context);
+
+   // Flow control methods
+   void updateConnectionWindow(i32 delta);
+   void updateStreamWindow(u32 streamId, i32 delta);
+   void sendWindowUpdate(const ChannelHandlerContext& context, u32 streamId, u32 increment);
+   bool canSendData(u32 streamId, u32 dataSize);
+   void consumeConnectionWindow(u32 dataSize);
+   void consumeStreamWindow(u32 streamId, u32 dataSize);
 
 
  public:

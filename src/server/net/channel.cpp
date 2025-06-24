@@ -2,9 +2,15 @@
 #include <spdlog/spdlog.h>
 #include <thread.hpp>
 
+using namespace jm;
 using namespace jm::net;
 
-Channel::~Channel() { spdlog::info("channel {} closed", usize(this)); }
+// Initialize the static connection counter
+std::atomic<u32> Channel::nextConnectionId_{1};
+
+Channel::~Channel() { 
+   spdlog::info("TCP connection {} closed", connectionId_); 
+}
 
 void Channel::write(const std::span<u8> &data) {
    if (socket_) {

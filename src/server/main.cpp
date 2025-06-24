@@ -41,6 +41,7 @@ class MainClass : public Component {
 
       acceptor_ = std::make_unique<Acceptor>(8080, [=](auto &&s) {
          auto channel = std::make_unique<net::Channel>(std::move(s));
+         u32 connectionId = channel->getConnectionId();
 
          auto pipeline =
              std::make_shared<net::ChannelPipeline>(std::move(channel));
@@ -50,7 +51,7 @@ class MainClass : public Component {
 
          std::weak_ptr<net::ChannelPipeline> weakPipeline = pipeline;
          pipeline->onClose([=]() {
-            spdlog::info("closing!");
+            spdlog::info("TCP connection {} pipeline closing!", connectionId);
             auto pipeline = weakPipeline.lock();
             if (pipeline) {
                std::scoped_lock lk(pipelinesMutex_);
@@ -59,7 +60,7 @@ class MainClass : public Component {
          });
          pipelines_.insert(pipeline);
          pipeline->startRead();
-         spdlog::info("created pipeline");
+         spdlog::info("created pipeline for TCP connection {}", connectionId);
       });
 
       acceptor_->accept();

@@ -35,6 +35,8 @@ class Http2Channel {
    http::HeaderMap decodeHeaders(const std::span<u8> &data);
 
    std::vector<u8> encodeHeaders(const http::HeaderMap &headers);
+
+   u32 getStreamId() const { return streamId_; }
 };
 } // namespace http
 } // namespace jm::net

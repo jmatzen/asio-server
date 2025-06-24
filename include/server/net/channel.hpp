@@ -29,13 +29,19 @@ class Channel {
     std::atomic_uint64_t next_ = 0;
     std::atomic_uint64_t waitingOn_ = 0;
     std::vector<Gather> gatherHeap_;
+    
+    // Connection identification
+    static std::atomic<u32> nextConnectionId_;
+    u32 connectionId_;
 
     void startRead_(std::function<void(const std::span<u8>& )> const &callback);
 
   public:
-    Channel(std::unique_ptr<Socket> &&socket) : socket_(std::move(socket)) {}
+    Channel(std::unique_ptr<Socket> &&socket) : socket_(std::move(socket)), connectionId_(nextConnectionId_++) {}
 
     ~Channel();
+
+    u32 getConnectionId() const { return connectionId_; }
 
     void startRead(std::function<void(const std::span<u8>& )> const &callback) {
         for (int i = 0; i != MAX_CONCURRENT_SCATTER_READS; ++i) {
