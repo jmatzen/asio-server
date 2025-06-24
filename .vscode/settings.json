@@ -67,7 +67,10 @@
         "*.ipp": "cpp",
         "fstream": "cpp",
         "iomanip": "cpp",
-        "types.h": "c"
+        "types.h": "c",
+        "functional": "cpp",
+        "chrono": "cpp",
+        "thread": "cpp"
     },
     "editor.tabSize": 3,
     "editor.insertSpaces": true
